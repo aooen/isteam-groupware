@@ -50,7 +50,7 @@ class Project_model extends CI_Model {
 			->where('user_id', $this->session->userdata('id'))
 			->get();
 		$row = $query->row();
-		if ($row->owner) return $status === 'open' ? 'editable' : 'openable';
+		if ($row && $row->owner) return $status === 'open' ? 'editable' : 'openable';
 		else return $status === 'open' ? 'attachable' : false;
 	}
 
