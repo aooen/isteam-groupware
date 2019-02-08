@@ -33,4 +33,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 ## Custom
 .vscode/*
 application/config/database.php
-application/session/*
+application/session/ci_session*
