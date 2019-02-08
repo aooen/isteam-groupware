@@ -8,7 +8,9 @@ class Welcome extends CI_Controller {
 	}
 
 	private function main() {
+		$this->load->view('header.include.php');
 		$this->load->view('welcome_message');
+		$this->load->view('footer.include.php');
 	}
 
 	private function project_main() {
