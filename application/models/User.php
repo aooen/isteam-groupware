@@ -25,7 +25,7 @@ class User extends CI_Model {
 
 	public function get_members() {
 		$query = $this->db->select('memberlist.*, user.email')
-			->from('memberlist inner join user on ;')
+			->from('memberlist')
 			->join('user', 'memberlist.number = user.number')
 			->get();
 		return $query->result();

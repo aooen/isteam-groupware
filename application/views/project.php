@@ -12,11 +12,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php } ?></h3>
 		<?=htmlspecialchars($project->summary)?>
 	</article>
+<?php if ($images) { ?>
 	<div class="scrollbar px-3 py-2" style="overflow-x: scroll; white-space: nowrap;">
-<?php foreach ($images as $img) { ?>
+	<?php foreach ($images as $img) { ?>
 		<a href="<?=$img->data?>" target="_blank"><img class="mr-2" src="<?=$img->data?>" style="height: 100px;" title="<?=$img->name?>이 업로드함 (<?=$img->create_date?>)"></a>
-<?php } ?>
+	<?php } ?>
 	</div>
+<?php } ?>
 <?php foreach ($urls as $url) { ?>
 	<article class="px-3 py-2" title="<?=$url->create_date?>">
 		<?=$url->name?> &#x1f517; <a href="<?=$url->data?>" target="_blank"><?=$url->data?></a>
