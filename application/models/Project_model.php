@@ -50,8 +50,14 @@ class Project_model extends CI_Model {
 			->where('user_id', $this->session->userdata('id'))
 			->get();
 		$row = $query->row();
-		if ($row && $row->owner) return $status === 'open' ? 'editable' : 'openable';
-		else return $status === 'open' ? 'attachable' : false;
+		if (!$row) return false;
+		else if ($status === 'open') {
+			if ($row->owner) return 'editable';
+			else return 'attachable';
+		} else {
+			if ($row->owner) return 'openable';
+			else return false;
+		}
 	}
 
 	public function get_attachments($project_no, $type = null) {

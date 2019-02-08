@@ -10,6 +10,7 @@ class Login extends CI_Controller {
 	public function index() {
 		$type = $this->input->post('type', true);
 		try {
+			if ($this->session->userdata('id')) throw new Exception('이미 로그인되어있습니다.');
 			if ($type === 'login') $this->login_post();
 			else if ($type === 'register') $this->register_post();
 			else $this->login_view();
@@ -28,8 +29,6 @@ class Login extends CI_Controller {
 	}
 
 	private function login_post() {
-		if ($this->session->userdata('id')) throw new Exception('이미 로그인되어있습니다.');
-
 		$id = $this->input->post('id', true);
 		$password = $this->input->post('password', true);
 
@@ -45,8 +44,6 @@ class Login extends CI_Controller {
 	}
 
 	private function register_post() {
-		if ($this->session->userdata('id')) throw new Exception('이미 로그인되어있습니다.');
-
 		$id = $this->input->post('id', true);
 		$password = $this->input->post('password', true);
 		$password_confirm = $this->input->post('password_confirm', true);
