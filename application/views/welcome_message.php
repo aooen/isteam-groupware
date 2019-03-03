@@ -5,16 +5,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class="col-md-6 mb-5 mx-auto">
 		<h3 class="mb-1">SSU Computer & Software Project Club</h2>
 		<h1 class="mb-5"><img class="mr-1" src="<?=base_url('static/img/logo.svg')?>" alt="ISTeam" style="height: 0.9em;"> ISTeam</h1>
-		<a class="btn btn-outline-light" href="<?=base_url('login')?>">부원 그룹웨어 로그인</a>
+		<a class="btn btn-outline-light" href="<?=base_url('login')?>">부원 그룹웨어 로그인</a>&nbsp;&nbsp;&nbsp;
+		<a class="btn btn-outline-light" href="https://git.isteam.dev" target="_blank">Git Repository</a>
 	</div>
 </section>
 <header class="sticky-top py-1">
 	<nav class="container d-flex flex-row justify-content-between">
+		<a class="py-2" href="#member">부원</a>
 		<a class="py-2" href="#activity">활동</a>
 		<a class="py-2" href="#support">지원</a>
-		<a class="py-2" href="#member">부원</a>
 	</nav>
 </header>
+<div id="member" class="container p-3 text-center">
+	<h3 class="mb-1">부원으로 지원하기</h3>
+	숭실대학교 컴퓨터학부·소프트웨어학부 소속 학부생만 지원이 가능합니다.<br>
+	<button class="mt-3 btn btn-primary" disabled>부원 신청하기</button><br>
+	<small>현재는 모집 기간이 아닙니다.<br>지원기간 : 3/4(월) 00:00 ~ 3/17(일) 23:59</small>
+</div>
 <div id="activity" class="container p-3">
 	<h3 class="mb-1 text-center">스터디 &amp; 세미나</h3>
 	<h5>2018년에 진행된 스터디 목록</h5>
@@ -26,12 +33,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</li>
 		<li class="list-group-item">
 			<h5>웹 스터디</h5>
-			프론트엔드 및 Node.js 스터디로, 웹 사이트를 만드는 방법에 대해 공부했습니다.
+			HTML5, CSS, JavaScript로 Front-end 개발 및 Node.js로 Back-end를 개발하는 방법에 대해 공부했습니다.
 		</li>
 		<li class="list-group-item">
 			<h5>머신러닝 스터디</h5>
 			머신러닝에 대한 기본적인 내용을 공부했습니다.
 		</li>
+	</ul>
+	<h5 class="mt-3">이외에도...</h5>
+	<ul>
+		<li>New Joier Training</li>
+		<li>정기 기술 세미나</li>
+		<li>Front-end Framework - React.js, Vue.js</li>
+		<li>Server - NodeJS, Django</li>
+		<li>DevOps - docker, AWS</li>
 	</ul>
 </div>
 <div id="support" class="container p-3">
@@ -47,10 +62,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<h3>숭실대학교 공식 소모임</h3>
 		숭실대학교 공식 컴퓨터학부, 소프트웨어학부 소속 소모임으로써 강의실 지원을 받습니다.
 	</div>
-</div>
-<div id="member" class="container p-3 text-center">
-	<h3 class="mb-1">부원으로 지원하기</h3>
-	숭실대학교 컴퓨터학부·소프트웨어학부 소속 학부생만 지원이 가능합니다.<br>
-	<button class="mt-3 btn btn-primary" disabled tooltip="">부원 신청하기</button><br>
-	<small>현재는 모집 기간이 아닙니다. 모집 시 홍보 예정입니다.</small>
 </div>
