@@ -19,8 +19,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div id="member" class="container p-3 text-center">
 	<h3 class="mb-1">부원으로 지원하기</h3>
 	숭실대학교 컴퓨터학부·소프트웨어학부 소속 학부생만 지원이 가능합니다.<br>
-	<button class="mt-3 btn btn-primary" disabled>부원 신청하기</button><br>
-	<small>현재는 모집 기간이 아닙니다.<br>지원기간 : 3/4(월) 00:00 ~ 3/17(일) 23:59</small>
+	<a class="mt-3 btn btn-primary" href="<?=base_url('recruit')?>">부원 신청하기</a><br>
+	<small>3/17(일) 23:59까지 지원이 가능합니다.</small>
 </div>
 <div id="activity" class="container p-3">
 	<h3 class="mb-1 text-center">스터디 &amp; 세미나</h3>

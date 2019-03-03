@@ -22,6 +22,7 @@
     var agree = $('input[name="agree"]');
     var name = $('.validate-input input[name="name"]');
     var email = $('.validate-input input[name="email"]');
+    var phone = $('.validate-input input[name="phone"]');
     var message1 = $('.validate-input textarea[name="message1"]');
     var message2 = $('.validate-input textarea[name="message2"]');
     var message3 = $('.validate-input textarea[name="message3"]');
@@ -42,6 +43,11 @@
 
         if(email.val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
             showValidate(email);
+            check=false;
+        }
+
+        if(phone.val().trim().match(/^[0-9]{2,3}\-[0-9]{3,4}\-[0-9]{4}$/) == null) {
+            showValidate(phone);
             check=false;
         }
 

@@ -28,6 +28,7 @@ class Recruit extends CI_Controller {
 		$agree = $this->input->post('agree', true);
 		$name = $this->input->post('name', true);
 		$email = $this->input->post('email', true);
+		$phone = $this->input->post('phone', true);
 		$department = $this->input->post('department', true);
 		$grade = $this->input->post('grade', true);
 		$github = $this->input->post('github', true);
@@ -40,9 +41,10 @@ class Recruit extends CI_Controller {
 		if (!($name && $email && $department && $grade && $message1 && $message2 && $message3 && $message4)) throw new Exception('입력이 없습니다.');
 		if (mb_strlen($name) > 32) throw new Exception('이름은 32자를 넘길 수 없습니다.');
 		if (mb_strlen($email) > 256) throw new Exception('이메일은 256자를 넘길 수 없습니다.');
+		if (!preg_match('/^[0-9]{2,3}\-[0-9]{3,4}\-[0-9]{4}$/', $phone)) throw new Exception('전화번호 형식이 올바르지 않습니다.');
 		if (mb_strlen($github) > 256) throw new Exception('GitHub 아이디는 256자를 넘길 수 없습니다.');
 
-		$this->recruit_model->insert_recruit($name, $email, $department, $grade, $github, $message1, $message2, $message3, $message4);
+		$this->recruit_model->insert_recruit($name, $email, $phone, $department, $grade, $github, $message1, $message2, $message3, $message4);
 
 		$this->load->view('recruit/done');
 	}

@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<textarea class="input100" disabled>　개인정보 취급방침
 2019년 3월 4일 시행, 2019년 3월 4일 수정
 1. ISTeam은 부원 모집을 위한 목적으로 개인정보를 수집하고 있습니다.
-2. 수집하는 정보 : 이름, 이메일, 소속 학부, 입학년도, GitHub 아이디, 자기소개
+2. 수집하는 정보 : 이름, 이메일, 전화번호, 소속 학부, 입학년도, GitHub 아이디, 자기소개
 3. 수집 사유 : 동아리 부원 모집 기초 자료, 결과 안내
 4. 제 3자에게 개인정보를 제공하지 않습니다.
 5. 다음과 같은 경우에 개인정보를 파기합니다.
@@ -41,9 +41,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<input class="input100" type="text" name="name" placeholder="이름을 입력해주세요">
 						<span class="focus-input100"></span>
 					</div>
-					<div class="wrap-input100 validate-input" data-validate="바른형식의 이메일이 입력되지 않았습니다.">
+					<div class="wrap-input100 validate-input" data-validate="올바른 이메일이 입력되지 않았습니다.">
 						<span class="label-input100">이메일</span>
 						<input class="input100" type="text" name="email" placeholder="이메일을 입력해 주세요">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate="올바른 연락처가 입력되지 않았습니다">
+						<span class="label-input100">연락처</span>
+						<input class="input100" type="text" name="phone" placeholder="'-'를 포함해서 전화번호를 입력해주세요">
 						<span class="focus-input100"></span>
 					</div>
 					<div class="wrap-input100 input100-select">
