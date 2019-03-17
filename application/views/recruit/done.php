@@ -19,6 +19,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</head>
 	<body>
 		<div class="container-contact100">
+		<?php if (date("Ymd") == "20190317") { ?>
+			<div class="w-100">
+				<div class="alert alert-danger" role="alert" style="max-width: 500px; margin: 0 auto 10px; text-align: center;">
+					<h5>마감 시간을 엄수해주세요!</h5><br>
+					오늘까지만 지원 가능합니다.<br>
+					추가 제출은 절대 불가능합니다!
+				</div>
+			</div>
+<?php } ?>
 			<div class="wrap-contact100">
 				<form class="contact100-form validate-form"><span class="contact100-form-title">지원이 완료되었습니다.</span>
 					<div class="wrap-input100 validate-input"><span class="label-input100"><br>숭실대학교 컴퓨터학부 소모임 ISTeam에 지원해주셔서 감사합니다.<br>빠른 시일내로 결과를 알려드리겠습니다.</span></div>

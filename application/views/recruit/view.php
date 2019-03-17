@@ -24,12 +24,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<th scope="col">입학년도</th>
 					<th scope="col">GitHub 아이디 (저장소)</th>
 				</tr>
-				<tr>
+				<tr class="row-2">
 					<th scope="col">이메일 (연락처)</th>
-					<th scope="col">프로그래밍 언어를 사용해 본 경험이 있으신가요?</th>
-					<th scope="col">프로젝트 경험이 있으신가요? 있다면 인상 깊은 프로젝트를 하나 설명해주시고, 없다면 진행하고 싶으신 프로젝트를 말씀해주세요.</th>
-					<th scope="col">컴퓨터에 흥미가 생긴 시기와 그 이유가 어떻게 되시나요?</th>
-					<th scope="col">ISTeam에 지원하신 동기와 합격 후 포부가 어떻게 되시나요?</th>
+					<th scope="col">언어 경험</th>
+					<th scope="col">프로젝트 경험 & 독창성</th>
+					<th scope="col">전공 선택 계기</th>
+					<th scope="col">지원 동기 및 포부</th>
 				</tr>
 			</thead>
 			<tbody>

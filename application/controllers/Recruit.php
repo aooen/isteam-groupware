@@ -17,6 +17,7 @@ class Recruit extends CI_Controller {
 	}
 	
 	private function intro() {
+		if (date("Ymd") > "20190317") throw new Exception('모집이 종료되었습니다!');
 		$this->load->view('recruit/intro');
 	}
 
@@ -25,6 +26,8 @@ class Recruit extends CI_Controller {
 	}
 
 	private function done() {
+		if (date("Ymd") > "20190317") throw new Exception('모집이 종료되었습니다!');
+
 		$agree = $this->input->post('agree', true);
 		$name = $this->input->post('name', true);
 		$email = $this->input->post('email', true);
@@ -46,7 +49,27 @@ class Recruit extends CI_Controller {
 
 		$this->recruit_model->insert_recruit($name, $email, $phone, $department, $grade, $github, $message1, $message2, $message3, $message4);
 
+		$this->mail($name, $grade, $github, $message1, $message2, $message3, $message4);
+
 		$this->load->view('recruit/done');
+	}
+
+	private function mail($name, $grade, $github, $message1, $message2, $message3, $message4) {
+		$config['protocol'] = 'sendmail';
+		$config['mailpath'] = '/usr/sbin/sendmail';
+		$config['charset'] = 'utf-8';
+
+		$this->load->library('email');
+		$this->email->initialize($config);
+
+		$this->email->from('webmaster@isteam.dev', 'ISTeam');
+		$this->email->to('isteam.ssu@gmail.com');
+
+		$this->email->subject("{$name}($grade)님이 지원하였습니다.");
+		$this->email->message("github : $github\n\n$message1\n\n$message2\n\n$message3\n\n$message4");
+
+		$this->email->set_newline("\r\n");
+		$this->email->send();
 	}
 
 	public function view($password) {

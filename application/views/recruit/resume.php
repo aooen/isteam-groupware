@@ -19,6 +19,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</head>
 	<body>
 		<div class="container-contact100">
+<?php if (date("Ymd") == "20190317") { ?>
+			<div class="w-100">
+				<div class="alert alert-danger" role="alert" style="max-width: 500px; margin: 0 auto 10px; text-align: center;">
+					<h5>마감 시간을 엄수해주세요!</h5><br>
+					오늘까지만 지원 가능합니다.<br>
+					추가 제출은 절대 불가능합니다!
+				</div>
+			</div>
+<?php } ?>
 			<div class="wrap-contact100">
 				<form class="contact100-form validate-form" method="post" action="<?=base_url('recruit')?>">
 					<span class="contact100-form-title">ISTeam</span>
@@ -85,7 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<span class="focus-input100"></span>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate="내용이 입력되지 않았습니다">
-						<span class="label-input100">프로그래밍 언어를 사용해 본 경험이 있으신가요?</span>
+						<span class="label-input100">사용해 본 프로그래밍 언어를 적어주세요.</span>
 						<textarea class="input100" name="message1" placeholder="내용을 입력해 주세요"></textarea>
 						<span class="focus-input100"></span>
 					</div>
