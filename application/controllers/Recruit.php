@@ -22,7 +22,12 @@ class Recruit extends CI_Controller {
 	}
 
 	public function resume() {
-		$this->load->view('recruit/resume');
+		try {
+			if (date("Ymd") > "20190317") throw new Exception('모집이 종료되었습니다!');
+			$this->load->view('recruit/resume');
+		} catch (Exception $e) {
+			echo "<meta charset='UTF-8'><script>alert('{$e->getMessage()}');history.back();</script>";
+		}
 	}
 
 	private function done() {
