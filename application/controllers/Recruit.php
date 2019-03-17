@@ -72,7 +72,7 @@ class Recruit extends CI_Controller {
 		$this->email->send();
 	}
 
-	public function view($password) {
+	public function view($password = null) {
 		if (!isset($password) || $password !== 'didzllcfixaygeijzmqietmivobavzlr') show_404();
 
 		$data = $this->recruit_model->get_recruits();
