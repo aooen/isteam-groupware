@@ -12,5 +12,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php } ?>
 		</tbody>
 	</table>
-	<small>개인정보취급방침에 동의하고 그룹웨어에 가입한 사람의 정보만 제공됩니다.</small>
+	<small>개인정보취급방침에 동의하고 그룹웨어에 가입한 사람의 정보만 제공됩니다. 재학생만 표시됩니다.</small>
 </section>

@@ -7,8 +7,8 @@ class User extends CI_Model {
 		return $query->row();
 	}
 
-	public function insert_user($id, $password, $number, $email) {
-		return $this->db->insert('user', [ 'id' => $id, 'password' => password_hash($password, PASSWORD_DEFAULT), 'number' => $number, 'email' => $email ]);
+	public function insert_user($id, $password, $number, $email, $name) {
+		return $this->db->insert('user', [ 'id' => $id, 'password' => password_hash($password, PASSWORD_DEFAULT), 'number' => $number, 'email' => $email, 'name' => $name ]);
 	}
 
 	public function login($id, $password) {
@@ -27,6 +27,8 @@ class User extends CI_Model {
 		$query = $this->db->select('memberlist.*, user.email')
 			->from('memberlist')
 			->join('user', 'memberlist.number = user.number')
+			->where('memberlist.number > 10000000')
+			->order_by('memberlist.number')
 			->get();
 		return $query->result();
 	}

@@ -143,3 +143,28 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+--
+-- 테이블 구조 `isteam_recruit`
+--
+
+CREATE TABLE `isteam_recruit` (
+  `no` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `department` enum('컴퓨터학부','소프트웨어학부') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `grade` enum('2019년','2018년','2017년','2016년','2015년','2014년','2013년','2012년','2011년','2011년 이전') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `github` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `message1` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message2` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message3` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message4` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 테이블의 인덱스 `isteam_recruit`
+--
+ALTER TABLE `isteam_recruit`
+  ADD PRIMARY KEY (`no`);

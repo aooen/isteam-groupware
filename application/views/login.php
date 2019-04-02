@@ -19,7 +19,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 	<form id="login" class="text-center" action="<?=base_url('login')?>" method="post">
-		<input type="hidden" name="type" value="login">
+		<input type="hidden" name="type" value="<?=$type?>">
+		<input type="hidden" name="key" value="<?=$key?>">
 		<h2 class="pb-2">ISTeam 그룹웨어</h2>
 		<div class="row px-3">
 			<div class="col-md-8 p-0">
@@ -32,7 +33,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div id="register-input" class="col-md-12 p-0" style="display: none;">
 				<input class="form-control form-control-sm border-top-0" type="password" name="password_confirm" placeholder="비밀번호 확인">
 				<input class="form-control form-control-sm border-top-0" type="text" name="name" placeholder="이름">
+<?php if (!$key_match) { ?>
 				<input class="form-control form-control-sm border-top-0" type="text" name="number" placeholder="학번">
+<?php } ?>
 				<input class="form-control form-control-sm border-top-0" type="text" name="email" placeholder="이메일">
 				<textarea class="form-control form-control-sm w-100" disabled>　이용약관
 본 ISTeam 그룹웨어는 ISTeam 회원만 이용할 수 있습니다. 이용약관은 ISTeam 회칙으로 갈음합니다.
@@ -55,13 +58,17 @@ ISTeam은 부원 여러분들의 편의를 위하여 다음 정보를 수집·�
 		<a id="register" class="text-white" href="#">회원가입</a>
 	</form>
 	<script>
+<?php if ($type === 'login') { ?>
 		$('#register').click(function () {
+<?php } else { ?>
+		$(function () {
+<?php } ?>
 			$('#register-input').show();
 			$('input[name=type]').val('register');
 			$('input[name=password]').css('border-radius', '0');
 			$('button[type=submit]').css('border-radius', '0 .2rem 0 0').text('가입');
-			$(this).hide();
-		})
+			$('#register').hide();
+		});
 	</script>
 </body>
 </html>

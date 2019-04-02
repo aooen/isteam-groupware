@@ -3,14 +3,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <section class="container mt-5 p-2">
 	<article class="px-3 py-2">
-		<h3 class="pb-2" style="border-bottom: 1px solid #d5d5d5;"><?=htmlspecialchars($project->title)?>
-<?php if ($project->status === 'close') { ?>
-		<span class="badge badge-secondary">폐쇄</span>
-<?php } ?>
 <?php if ($permission === 'editable' || $permission === 'openable') { ?>
 		<button type="button" class="float-right btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#edit-project">&#x270E;</button>
-<?php } ?></h3>
-		<?=htmlspecialchars($project->summary)?>
+<?php } else if ($permission === 'attachable') { ?>
+		<span class="float-right btn btn-sm btn-outline-success disabled">참여됨!</span>
+<?php } else { ?>
+		<form class="float-right" action="<?=base_url('project')?>" method="post">
+			<input type="hidden" name="project" value="<?=$project->no?>">
+			<input type="hidden" name="type" value="join">
+			<button type="submit" class="btn btn-sm btn-outline-dark">참여</button>
+		</form>
+<?php } ?>
+		<h3 class="pb-2" style="border-bottom: 1px solid #d5d5d5;">
+			<?=htmlspecialchars($project->title)?>
+<?php if ($project->status === 'close') { ?>
+			<span class="badge badge-secondary">폐쇄</span>
+<?php } ?>
+		</h3>
+		<?=nl2br(htmlspecialchars($project->summary))?>
 	</article>
 <?php if ($images) { ?>
 	<div class="scrollbar px-3 py-2" style="overflow-x: scroll; white-space: nowrap;">
@@ -27,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php foreach ($texts as $text) { ?>
 	<article class="px-3 py-2" title="<?=$url->create_date?>">
 		<strong class="mr-3"><?=$text->name?></strong>
-		<?=$text->data?>
+		<?=nl2br($text->data)?>
 	</article>
 <?php } ?>
 <?php if ($permission === 'editable' || $permission === 'attachable') { ?>

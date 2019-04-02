@@ -8,6 +8,8 @@ class Project extends CI_Controller {
 	}
 
 	public function index() {
+		if (!$this->session->userdata('id')) show_404();
+
 		if ($this->input->method() === 'get') $this->page(1);
 		else {
 			try {
@@ -15,6 +17,7 @@ class Project extends CI_Controller {
 				if ($type === 'remove') $this->remove_project();
 				else if ($type === 'close') $this->close_project();
 				else if ($type === 'edit') $this->edit_project();
+				else if ($type === 'join') $this->join_project();
 				else $this->write_project();
 			} catch (Exception $e) {
 				echo "<meta charset='UTF-8'><script>alert('{$e->getMessage()}');history.back();</script>";
@@ -23,6 +26,8 @@ class Project extends CI_Controller {
 	}
 
 	public function view($no) {
+		if (!$this->session->userdata('id')) show_404();
+
 		$data = [
 			'project' => $this->project->get_project($no),
 			'texts' => $this->project->get_attachments($no, 'text'),
@@ -39,6 +44,8 @@ class Project extends CI_Controller {
 	}
 
 	public function page($page) {
+		if (!$this->session->userdata('id')) show_404();
+
 		$this->project_list($page);
 	}
 
@@ -101,6 +108,14 @@ class Project extends CI_Controller {
 		if (mb_strlen($summary) > 1000) throw new Exception('요약은 1000자를 넘을 수 없습니다.');
 
 		$this->project->edit_project($project, $title, $summary);
+
+		redirect(base_url("project/view/$project"));
+	}
+
+	private function join_project() {
+		$project = $this->input->post('project', true);
+
+		$this->project->insert_team($project, $this->session->userdata('id'));
 
 		redirect(base_url("project/view/$project"));
 	}
