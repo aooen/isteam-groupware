@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php } ?>
 <?php foreach ($texts as $text) { ?>
 	<article class="px-3 py-2">
-		<small><?=$url->create_date?></small><br>
+		<small><?=$text->create_date?></small><br>
 		<strong class="mr-3"><?=$text->name?></strong>
 		<?=nl2br($text->data)?>
 	</article>
