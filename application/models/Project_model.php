@@ -22,7 +22,7 @@ class Project_model extends CI_Model {
 		return $this->db->count_all_results();
 	}
 
-	public function insert_project($title, $summary, $status = 'open') {
+	public function insert_project($title, $summary, $status = 'recruit') {
 		$result = $this->db->insert('project', [ 'title' => $title, 'summary' => $summary, 'status' => $status, 'create_date' => date('Y-m-d H:i:s') ]);
 		if (!$result) return false;
 		$result = $this->db->insert_id();
@@ -84,6 +84,11 @@ class Project_model extends CI_Model {
 
 	public function insert_attachment($project_no, $type, $data) {
 		return $this->db->insert('project_attachment', [ 'project_no' => $project_no, 'user_id' => $this->session->userdata('id'), 'type' => $type, 'data' => $data, 'create_date' => date('Y-m-d H:i:s') ]);
+	}
+
+	public function recruit_project($project_no) {
+		$this->db->where('no', $project_no);
+		return $this->db->update('project', [ 'status' => 'recruit' ]);
 	}
 
 	public function open_project($project_no) {

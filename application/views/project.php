@@ -83,20 +83,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 			<form action="<?=base_url('project')?>" method="post">
 				<input type="hidden" name="project" value="<?=$project->no?>">
-<?php if ($project->status === 'recruit' || $project->status === 'open') { ?>
+<?php if ($project->status !== 'close') { ?>
 				<div class="modal-body">
 					<input class="form-control w-100" type="text" name="title" placeholder="제목" maxlength="100" value="<?=$project->title?>">
 					<textarea class="form-control w-100" name="summary" rows="10" placeholder="요약 (1000자 이내)" maxlength="1000"><?=$project->summary?></textarea>
 				</div>
 <?php } ?>
 				<div class="modal-footer">
-					<button type="submit" name="type" value="remove" class="btn btn-danger" onsubmit="return confirm('복구가 불가능합니다! 정말 삭제하시겠습니까?');">삭제</button>
+					<div class="btn-group">
+						<button type="submit" name="type" value="remove" class="btn btn-danger" onsubmit="return confirm('복구가 불가능합니다! 정말 삭제하시겠습니까?');">삭제</button>
 <?php if ($project->status === 'close') { ?>
-					<button type="submit" name="type" value="close" class="btn btn-success">폐쇄취소</button>
+						<button type="submit" name="type" value="close" class="btn btn-secondary">폐쇄취소</button>
 <?php } else { ?>
-					<button type="submit" name="type" value="close" class="btn btn-warning">폐쇄</button>
-					<button type="submit" name="type" value="edit" class="btn btn-primary">수정</button>
+						<button type="submit" name="type" value="close" class="btn btn-secondary">폐쇄</button>
+	<?php if ($project->status === 'recruit') { ?>
+						<button type="submit" name="type" value="recruit" class="btn btn-secondary">모집 중지</button>
+	<?php } else { ?>
+						<button type="submit" name="type" value="recruit" class="btn btn-secondary">모집</button>
+	<?php } ?>
+						<button type="submit" name="type" value="edit" class="btn btn-primary">수정</button>
 <?php } ?>
+					</div>
 				</div>
 			</form>
 		</div>

@@ -16,6 +16,7 @@ class Project extends CI_Controller {
 				$type = $this->input->post('type', true);
 				if ($type === 'remove') $this->remove_project();
 				else if ($type === 'close') $this->close_project();
+				else if ($type === 'recruit') $this->recruit_project();
 				else if ($type === 'edit') $this->edit_project();
 				else if ($type === 'join') $this->join_project();
 				else $this->write_project();
@@ -91,11 +92,23 @@ class Project extends CI_Controller {
 
 	private function close_project() {
 		$project = $this->input->post('project', true);
+		$project_info = $this->project->get_project($project);
 		$permission = $this->project->get_permission($project);
 		if (!$permission['edit']) throw new Exception('권한이 없습니다.');
 
-		if ($project->status === 'close') $this->project->open_project($project);
+		if ($project_info->status === 'close') $this->project->open_project($project);
 		else $this->project->close_project($project);
+		redirect(base_url("project/view/$project"));
+	}
+
+	private function recruit_project() {
+		$project = $this->input->post('project', true);
+		$project_info = $this->project->get_project($project);
+		$permission = $this->project->get_permission($project);
+		if (!$permission['edit']) throw new Exception('권한이 없습니다.');
+
+		if ($project_info->status === 'recruit') $this->project->open_project($project);
+		else $this->project->recruit_project($project);
 		redirect(base_url("project/view/$project"));
 	}
 
@@ -116,7 +129,6 @@ class Project extends CI_Controller {
 
 	private function join_project() {
 		$project = $this->input->post('project', true);
-		$project_info = $this->project->get_project($project);
 		$permission = $this->project->get_permission($project);
 		if (!$permission['join']) throw new Exception('권한이 없습니다.');
 
