@@ -31,7 +31,7 @@ class Project_model extends CI_Model {
 	}
 
 	public function insert_team($project_no, $user_id, $owner = false) {
-		return $this->db->insert('project_team', [ 'project_no' => $project_no, 'user_id' => $user_id, 'owner' => $owner ]);
+		return $this->db->insert('project_team', [ 'project_no' => $project_no, 'user_id' => $user_id, 'owner' => $owner, 'date' => date('Y-m-d H:i:s') ]);
 	}
 
 	public function get_team($project_no) {
@@ -52,14 +52,23 @@ class Project_model extends CI_Model {
 			->where('user_id', $this->session->userdata('id'))
 			->get();
 		$row = $query->row();
-		if (!$row) return false;
-		else if ($status === 'open') {
-			if ($row->owner) return 'editable';
-			else return 'attachable';
-		} else {
-			if ($row->owner) return 'openable';
-			else return false;
+		
+		$permission = [
+			'edit' => false,
+			'attach' => false,
+			'join' => $status === 'recruit'
+		];
+
+		if ($row) {
+			if ($status === 'recruit' || $status === 'open') {
+				$permission['edit'] = $row->owner;
+				$permission['attach'] = true;
+			} else if ($status === 'close') {
+				$permission['edit'] = $row->owner;
+			}
 		}
+
+		return $permission;
 	}
 
 	public function get_attachments($project_no, $type = null) {
@@ -77,11 +86,14 @@ class Project_model extends CI_Model {
 		return $this->db->insert('project_attachment', [ 'project_no' => $project_no, 'user_id' => $this->session->userdata('id'), 'type' => $type, 'data' => $data, 'create_date' => date('Y-m-d H:i:s') ]);
 	}
 
-	public function close_project($project_no) {
-		$status = 'close';
-		if ($this->get_project($project_no)->status === 'close') $status = 'open';
+	public function open_project($project_no) {
 		$this->db->where('no', $project_no);
-		return $this->db->update('project', [ 'status' => $status ]);
+		return $this->db->update('project', [ 'status' => 'open' ]);
+	}
+
+	public function close_project($project_no) {
+		$this->db->where('no', $project_no);
+		return $this->db->update('project', [ 'status' => 'close' ]);
 	}
 
 	public function remove_project($project_no) {

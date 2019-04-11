@@ -3,49 +3,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <section class="container mt-5 p-2">
 	<article class="px-3 py-2">
-<?php if ($permission === 'editable' || $permission === 'openable') { ?>
+<?php if ($permission['edit']) { ?>
 		<button type="button" class="float-right btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#edit-project">&#x270E;</button>
-<?php } else if ($permission === 'attachable') { ?>
+<?php } else if ($permission['attach']) { ?>
 		<span class="float-right btn btn-sm btn-outline-success disabled">참여됨!</span>
-<?php } else if ($project->status === 'open') { ?>
+<?php } else if ($project->status === 'recruit') { ?>
 		<form class="float-right" action="<?=base_url('project')?>" method="post">
 			<input type="hidden" name="project" value="<?=$project->no?>">
 			<input type="hidden" name="type" value="join">
-			<button type="submit" class="btn btn-sm btn-outline-dark" onclick="return confirm('되돌릴 수 없습니다. 정말로 하시겠습니까?')">참여</button>
+			<button type="submit" class="btn btn-sm btn-outline-dark" onclick="return confirm('정말로 참여하시겠습니까?')">참여</button>
 		</form>
 <?php } ?>
 		<h3 class="pb-2" style="border-bottom: 1px solid #d5d5d5;">
 			<?=htmlspecialchars($project->title)?>
-<?php if ($project->status === 'close') { ?>
+<?php if ($project->status === 'recruit') { ?>
+			<span class="badge badge-success">모집</span>
+<?php } else if ($project->status === 'close') { ?>
 			<span class="badge badge-secondary">폐쇄</span>
 <?php } ?>
 		</h3>
 		<div>
 <?php foreach ($team as $t) { ?>
-			<span class="badge <?=($t->owner ? 'badge-success' : 'badge-secondary')?>"><?=$t->name?><?=substr($t->number, 2, 2)?></span>
+			<span class="badge <?=($t->owner ? 'badge-success' : 'badge-secondary')?>" title="<?=$t->number.' ('.$t->date?>)"><?=$t->name?><?=substr($t->number, 2, 2)?></span>
 <?php } ?>
 		</div>
 		<?=nl2br(htmlspecialchars($project->summary))?>
 	</article>
 <?php if ($images) { ?>
 	<div class="scrollbar px-3 py-2" style="overflow-x: scroll; white-space: nowrap;">
+		<div style="width: 1000vw">
 	<?php foreach ($images as $img) { ?>
-		<a href="<?=$img->data?>" target="_blank"><img class="mr-2" src="<?=$img->data?>" style="height: 100px;" title="<?=$img->name?>이 업로드함 (<?=$img->create_date?>)"></a>
+		<div class="float-left">
+			<a href="<?=$img->data?>" target="_blank"><img class="mr-2" src="<?=$img->data?>" style="height: 100px;"><br><small><?=$img->name?> (<?=$img->create_date?>)</small></a>
+		</div>
 	<?php } ?>
+		</div>
 	</div>
 <?php } ?>
 <?php foreach ($urls as $url) { ?>
-	<article class="px-3 py-2" title="<?=$url->create_date?>">
+	<article class="px-3 py-2">
+		<small><?=$url->create_date?></small><br>
 		<?=$url->name?> &#x1f517; <a href="<?=$url->data?>" target="_blank"><?=$url->data?></a>
 	</article>
 <?php } ?>
 <?php foreach ($texts as $text) { ?>
-	<article class="px-3 py-2" title="<?=$url->create_date?>">
+	<article class="px-3 py-2">
+		<small><?=$url->create_date?></small><br>
 		<strong class="mr-3"><?=$text->name?></strong>
 		<?=nl2br($text->data)?>
 	</article>
 <?php } ?>
-<?php if ($permission === 'editable' || $permission === 'attachable') { ?>
+<?php if ($permission['attach']) { ?>
 	<article class="px-3 py-2">
 		<form class="row" action="<?=base_url('project/attach/'.$project->no)?>" method="post">
 			<div class="col-10">
@@ -63,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</article>
 <?php } ?>
 </section>
-<?php if ($permission === 'editable' || $permission === 'openable') { ?>
+<?php if ($permission['edit']) { ?>
 <div class="modal fade" id="edit-project" tabindex="-1" role="dialog" aria-labelledby="edit-project-label" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -75,7 +83,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 			<form action="<?=base_url('project')?>" method="post">
 				<input type="hidden" name="project" value="<?=$project->no?>">
-<?php if ($project->status === 'open') { ?>
+<?php if ($project->status === 'recruit' || $project->status === 'open') { ?>
 				<div class="modal-body">
 					<input class="form-control w-100" type="text" name="title" placeholder="제목" maxlength="100" value="<?=$project->title?>">
 					<textarea class="form-control w-100" name="summary" rows="10" placeholder="요약 (1000자 이내)" maxlength="1000"><?=$project->summary?></textarea>

@@ -28,6 +28,31 @@ class Login extends CI_Controller {
 		redirect(base_url());
 	}
 
+	public function mypage() {
+		if (!$this->session->userdata('id')) redirect(base_url('login'));
+
+		try {
+			if ($this->input->method() === 'post') {
+				$password = $this->input->post('password', true);
+				$password_confirm = $this->input->post('password_confirm', true);
+				if (strlen($password) < 6) throw new Exception('비밀번호는 6자 이상이어야 합니다.');
+				if ($password !== $password_confirm) throw new Exception('비밀번호와 비밀번호 확인이 다릅니다.');
+
+				$this->user->change_password($password);
+
+				$this->session->sess_destroy();
+				redirect(base_url('login'));
+			} else {
+				$this->load->view('header.include.php');
+				$this->load->view('group_header.include.php');
+				$this->load->view('mypage');
+				$this->load->view('footer.include.php');
+			}
+		} catch (Exception $e) {
+			echo "<meta charset='UTF-8'><script>alert('{$e->getMessage()}');history.back();</script>";
+		}
+	}
+
 	private function login_view() {
 		$key = $this->input->get('key', true);
 		$key_match = ($this->key_raw && $key === $this->key_raw);

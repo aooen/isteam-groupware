@@ -15,16 +15,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	</div>
 	<div style="border-top: 1px solid #ccc;">
-<?php foreach ($list as $row) { ?>
+<?php foreach ($list as $project) { ?>
 		<div class="px-3 py-2 border-1 border-top-0">
-			<h4><a href="<?=base_url('project/view/'.$row->no)?>"><?=htmlspecialchars($row->title)?></a>
-	<?php if ($row->status === 'close') { ?>
+			<h4><a href="<?=base_url('project/view/'.$project->no)?>"><?=htmlspecialchars($project->title)?></a>
+	<?php if ($project->status === 'recruit') { ?>
+			<span class="badge badge-success">모집</span>
+	<?php } else if ($project->status === 'close') { ?>
 			<span class="badge badge-secondary">폐쇄</span>
 	<?php } ?>
 		</h4>
 	<?php 
-	$summary = htmlspecialchars($row->summary);
-	$summary = mb_strlen($summary) <= 50 ? $summary : mb_substr($summary, 0, 50).'...';
+	$summary = htmlspecialchars($project->summary);
+	$summary = mb_strlen($summary) <= 50 ? $summary : mb_substr($summary, 0, 100).'...';
 	echo $summary;
 	?>
 		</div>

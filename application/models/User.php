@@ -28,8 +28,14 @@ class User extends CI_Model {
 			->from('memberlist')
 			->join('user', 'memberlist.number = user.number')
 			->where('memberlist.number > 10000000')
+			->where('user.password is not null')
 			->order_by('memberlist.number')
 			->get();
 		return $query->result();
+	}
+
+	public function change_password($new_password) {
+		$this->db->where('id', $this->session->userdata('id'));
+		return $this->db->update('user', [ 'password' => password_hash($new_password, PASSWORD_DEFAULT) ]);
 	}
 }

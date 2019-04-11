@@ -83,7 +83,7 @@ class Project extends CI_Controller {
 	private function remove_project() {
 		$project = $this->input->post('project', true);
 		$permission = $this->project->get_permission($project);
-		if ($permission !== 'editable' && $permission !== 'openable') throw new Exception('권한이 없습니다.');
+		if (!$permission['edit']) throw new Exception('권한이 없습니다.');
 
 		$this->project->remove_project($project);
 		redirect(base_url("project"));
@@ -92,15 +92,17 @@ class Project extends CI_Controller {
 	private function close_project() {
 		$project = $this->input->post('project', true);
 		$permission = $this->project->get_permission($project);
-		if ($permission !== 'editable' && $permission !== 'openable') throw new Exception('권한이 없습니다.');
+		if (!$permission['edit']) throw new Exception('권한이 없습니다.');
 
-		$this->project->close_project($project);
+		if ($project->status === 'close') $this->project->open_project($project);
+		else $this->project->close_project($project);
 		redirect(base_url("project/view/$project"));
 	}
 
 	private function edit_project() {
 		$project = $this->input->post('project', true);
-		if ($this->project->get_permission($project) !== 'editable') throw new Exception('권한이 없습니다.');
+		$permission = $this->project->get_permission($project);
+		if (!$permission['edit']) throw new Exception('권한이 없습니다.');
 
 		$title = $this->input->post('title', true);
 		$summary = $this->input->post('summary', true);
@@ -115,7 +117,8 @@ class Project extends CI_Controller {
 	private function join_project() {
 		$project = $this->input->post('project', true);
 		$project_info = $this->project->get_project($project);
-		if ($this->project->get_permission($project) || $project_info->status !== 'open') throw new Exception('권한이 없습니다.');
+		$permission = $this->project->get_permission($project);
+		if (!$permission['join']) throw new Exception('권한이 없습니다.');
 
 		$this->project->insert_team($project, $this->session->userdata('id'));
 
@@ -124,7 +127,7 @@ class Project extends CI_Controller {
 
 	private function insert_attachment($no) {
 		$permission = $this->project->get_permission($no);
-		if ($permission !== 'editable' && $permission !== 'attachable') throw new Exception('권한이 없습니다.');
+		if (!$permission['attach']) throw new Exception('권한이 없습니다.');
 
 		$type = $this->input->post('type', true);
 		$data = $this->input->post('data', true);

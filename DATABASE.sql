@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- 생성 시간: 19-02-08 13:20
--- 서버 버전: 10.0.33-MariaDB-0ubuntu0.16.04.1
--- PHP 버전: 7.1.14
+-- 생성 시간: 19-04-11 22:11
+-- 서버 버전: 10.3.13-MariaDB-1:10.3.13+maria~bionic
+-- PHP 버전: 7.1.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 데이터베이스: `gkrdus124`
+-- 데이터베이스: `isteam`
 --
 
 -- --------------------------------------------------------
@@ -43,7 +43,7 @@ CREATE TABLE `isteam_project` (
   `no` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `summary` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('open','close','delete') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('recruit','open','close','delete') COLLATE utf8mb4_unicode_ci NOT NULL,
   `create_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -71,7 +71,29 @@ CREATE TABLE `isteam_project_attachment` (
 CREATE TABLE `isteam_project_team` (
   `project_no` bigint(20) UNSIGNED NOT NULL,
   `user_id` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner` tinyint(1) NOT NULL
+  `owner` tinyint(1) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `isteam_recruit`
+--
+
+CREATE TABLE `isteam_recruit` (
+  `no` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `department` enum('컴퓨터학부','소프트웨어학부') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `grade` enum('2019년','2018년','2017년','2016년','2015년','2014년','2013년','2012년','2011년','2011년 이전') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `github` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `message1` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message2` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message3` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message4` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -83,8 +105,9 @@ CREATE TABLE `isteam_project_team` (
 CREATE TABLE `isteam_user` (
   `id` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `number` int(10) UNSIGNED NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `number` int(10) UNSIGNED DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -114,7 +137,13 @@ ALTER TABLE `isteam_project_attachment`
 -- 테이블의 인덱스 `isteam_project_team`
 --
 ALTER TABLE `isteam_project_team`
-  ADD KEY `user_project` (`project_no`,`user_id`) USING BTREE;
+  ADD UNIQUE KEY `user_project` (`project_no`,`user_id`) USING BTREE;
+
+--
+-- 테이블의 인덱스 `isteam_recruit`
+--
+ALTER TABLE `isteam_recruit`
+  ADD PRIMARY KEY (`no`);
 
 --
 -- 테이블의 인덱스 `isteam_user`
@@ -138,33 +167,14 @@ ALTER TABLE `isteam_project`
 --
 ALTER TABLE `isteam_project_attachment`
   MODIFY `no` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- 테이블의 AUTO_INCREMENT `isteam_recruit`
+--
+ALTER TABLE `isteam_recruit`
+  MODIFY `no` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
---
--- 테이블 구조 `isteam_recruit`
---
-
-CREATE TABLE `isteam_recruit` (
-  `no` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `department` enum('컴퓨터학부','소프트웨어학부') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `grade` enum('2019년','2018년','2017년','2016년','2015년','2014년','2013년','2012년','2011년','2011년 이전') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `github` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `message1` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message2` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message3` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message4` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- 테이블의 인덱스 `isteam_recruit`
---
-ALTER TABLE `isteam_recruit`
-  ADD PRIMARY KEY (`no`);
