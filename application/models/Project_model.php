@@ -38,8 +38,10 @@ class Project_model extends CI_Model {
 		$query = $this->db->from('project_team')
 			->where('project_no', $project_no )
 			->join('user', 'project_team.user_id = user.id')
+			->join('memberlist', 'user.number = memberlist.number')
+			->order_by('owner DESC, memberlist.name ASC')
 			->get();
-		return $query->row();
+		return $query->result();
 	}
 
 	public function get_permission($project_no) {

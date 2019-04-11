@@ -13,8 +13,8 @@ class User extends CI_Model {
 
 	public function login($id, $password) {
 		$user = $this->get_user([ 'id' => $id ]);
-		if (is_null($user)) return false;
-		if (password_verify($password, $user->password)) return $user;
+		if (isset($user) && password_verify($password, $user->password)) return $user;
+		else return false;
 	}
 
 	public function is_member($name, $number) {

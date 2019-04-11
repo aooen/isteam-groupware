@@ -46,7 +46,7 @@ class Login extends CI_Controller {
 		if (strlen($password) < 6) throw new Exception('비밀번호는 6자 이상이어야 합니다.');
 
 		$user = $this->user->login($id, $password);
-		if (is_null($user)) throw new Exception('아이디나 비밀번호를 잘못 입력하신 것 같습니다.');
+		if (!$user) throw new Exception('아이디나 비밀번호를 잘못 입력하신 것 같습니다.');
 		
 		$this->session->set_userdata([ 'id' => $id ]);
 

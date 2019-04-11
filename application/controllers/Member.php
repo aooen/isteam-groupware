@@ -8,7 +8,7 @@ class Member extends CI_Controller {
 	}
 
 	public function index() {
-		if (!$this->session->userdata('id')) show_404();
+		if (!$this->session->userdata('id')) redirect(base_url('login'));
 
 		$this->load->view('header.include.php');
 		$this->load->view('group_header.include.php');

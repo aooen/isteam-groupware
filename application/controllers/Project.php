@@ -8,7 +8,7 @@ class Project extends CI_Controller {
 	}
 
 	public function index() {
-		if (!$this->session->userdata('id')) show_404();
+		if (!$this->session->userdata('id')) redirect(base_url('login'));
 
 		if ($this->input->method() === 'get') $this->page(1);
 		else {
@@ -26,7 +26,7 @@ class Project extends CI_Controller {
 	}
 
 	public function view($no) {
-		if (!$this->session->userdata('id')) show_404();
+		if (!$this->session->userdata('id')) redirect(base_url('login'));
 
 		$data = [
 			'project' => $this->project->get_project($no),
@@ -44,7 +44,7 @@ class Project extends CI_Controller {
 	}
 
 	public function page($page) {
-		if (!$this->session->userdata('id')) show_404();
+		if (!$this->session->userdata('id')) redirect(base_url('login'));
 
 		$this->project_list($page);
 	}
@@ -114,6 +114,8 @@ class Project extends CI_Controller {
 
 	private function join_project() {
 		$project = $this->input->post('project', true);
+		$project_info = $this->project->get_project($project);
+		if ($this->project->get_permission($project) || $project_info->status !== 'open') throw new Exception('권한이 없습니다.');
 
 		$this->project->insert_team($project, $this->session->userdata('id'));
 

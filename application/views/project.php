@@ -7,11 +7,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<button type="button" class="float-right btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#edit-project">&#x270E;</button>
 <?php } else if ($permission === 'attachable') { ?>
 		<span class="float-right btn btn-sm btn-outline-success disabled">참여됨!</span>
-<?php } else { ?>
+<?php } else if ($project->status === 'open') { ?>
 		<form class="float-right" action="<?=base_url('project')?>" method="post">
 			<input type="hidden" name="project" value="<?=$project->no?>">
 			<input type="hidden" name="type" value="join">
-			<button type="submit" class="btn btn-sm btn-outline-dark">참여</button>
+			<button type="submit" class="btn btn-sm btn-outline-dark" onclick="return confirm('되돌릴 수 없습니다. 정말로 하시겠습니까?')">참여</button>
 		</form>
 <?php } ?>
 		<h3 class="pb-2" style="border-bottom: 1px solid #d5d5d5;">
@@ -20,6 +20,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<span class="badge badge-secondary">폐쇄</span>
 <?php } ?>
 		</h3>
+		<div>
+<?php foreach ($team as $t) { ?>
+			<span class="badge <?=($t->owner ? 'badge-success' : 'badge-secondary')?>"><?=$t->name?><?=substr($t->number, 2, 2)?></span>
+<?php } ?>
+		</div>
 		<?=nl2br(htmlspecialchars($project->summary))?>
 	</article>
 <?php if ($images) { ?>
