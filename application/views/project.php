@@ -90,20 +90,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</div>
 <?php } ?>
 				<div class="modal-footer">
-					<div class="btn-group">
-						<button type="submit" name="type" value="remove" class="btn btn-danger" onsubmit="return confirm('복구가 불가능합니다! 정말 삭제하시겠습니까?');">삭제</button>
+					<button type="submit" name="type" value="remove" class="btn btn-danger" onsubmit="return confirm('복구가 불가능합니다! 정말 삭제하시겠습니까?');">삭제</button>
 <?php if ($project->status === 'close') { ?>
-						<button type="submit" name="type" value="close" class="btn btn-secondary">폐쇄취소</button>
+					<button type="submit" name="type" value="close" class="btn btn-secondary">폐쇄취소</button>
 <?php } else { ?>
+					<div class="btn-group">
 						<button type="submit" name="type" value="close" class="btn btn-secondary">폐쇄</button>
 	<?php if ($project->status === 'recruit') { ?>
 						<button type="submit" name="type" value="recruit" class="btn btn-secondary">모집 중지</button>
 	<?php } else { ?>
 						<button type="submit" name="type" value="recruit" class="btn btn-secondary">모집</button>
 	<?php } ?>
-						<button type="submit" name="type" value="edit" class="btn btn-primary">수정</button>
-<?php } ?>
 					</div>
+<?php } ?>
+					<button type="submit" name="type" value="edit" class="btn btn-primary">수정</button>
 				</div>
 			</form>
 		</div>
