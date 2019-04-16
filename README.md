@@ -11,6 +11,7 @@
 ## 설치 방법
 1. `/application/config/database.sample.php` 파일의 이름을 `/application/config/database.php`로 변경하고, `$db['default']` 배열의 내용을 실제 DB 정보로 수정해주세요.
 1. `/application/config/key.sample.php` 파일의 이름을 `/application/config/key.php`로 변경하고, `$config['key']` 의 내용을 설명을 읽고 수정해주세요.
+1. `/application/views/account.sample.php` 파일의 이름을 `/application/views/account.php`로 변경하고, 주석의 내용을 읽고 수정해주세요.
 1. `/DATABASE.sql` 파일을 데이터베이스에 Import하세요.
 1. `/application/session/` 폴더에 `777` Permission을 적용하세요. (윈도우의 경우, Everyone에 모든 권한을 부여하면 됩니다.)
 1. `isteam_memberlist` 테이블에 부원 정보를 Import하세요.
